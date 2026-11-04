@@ -10,6 +10,8 @@ are still being reconstructed.
 The recovered routines are portable
 C++, checked against the original 6502 program, with desktop and WebAssembly builds.
 
+![Gyrus gameplay preview running in the browser](docs/images/gameplay.png)
+
 ## Current work
 
 - Reproducible ATR/XEX extraction, verified against an Atari800 memory dump.
