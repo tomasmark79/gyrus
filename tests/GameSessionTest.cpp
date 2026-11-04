@@ -4,6 +4,32 @@
 #include "PlayerShotRasterData.hpp"
 using namespace gyrus::game;
 
+TEST(GameSession, SimultaneousUpgradeHitsKeepHudDigitsDecimal) {
+  for (bool crossingExtraLife : {false, true}) {
+    GameSession game;
+    game.begin();
+    if (crossingExtraLife) game.score.players[0].digits = {0,0,5,8,0,0};
+    UpgradeState targets;
+    targets.targetPhase = 8;
+    for (unsigned i = 0; i < targets.targets.size(); ++i) {
+      auto& target = targets.targets[i];
+      target.angle = 32;
+      target.depth = 28;
+      target.spriteType = i == 1 ? 16 : 4;
+      target.width = 10;
+      target.visible = target.hit = true;
+    }
+    game.applyEvents(updateUpgradeTargets(targets, {}));
+    game.step(15, false); // Copy the score into the actual HUD model.
+    EXPECT_EQ(game.score.points(0), crossingExtraLife ? 61000u : 3000u);
+    EXPECT_EQ(game.score.players[0].lives, crossingExtraLife ? 6 : 5);
+    for (auto digit : game.hud.scoreDigits[0]) EXPECT_LE(digit, 9);
+    Framebuffer field{}, layer{};
+    const auto colors = game.draw(field, layer);
+    EXPECT_NO_THROW((void)composeScene(field, game.hud, game.scene, colors, &layer));
+  }
+}
+
 TEST(GameSession, PlayerShotsMatchOriginalRasterAtEveryAngleAndTravelDepth) {
   GameSession game;
   Framebuffer baseline{}, player{};
@@ -151,6 +177,7 @@ TEST(GameSession, CompleteSixPlanetCircuitUsingOnlyMovementAndFire) {
   for (unsigned i = 0; i < 60000 && game.turns.players[0].level < 24; ++i) {
     visited[game.turns.players[0].planetOffset / 8] = true;
     ASSERT_NO_THROW(game.step(directions[(i / 40) % 8], i % 4 == 0)) << i;
+    for (auto digit : game.hud.scoreDigits[0]) ASSERT_LE(digit, 9) << "tick=" << i;
   }
   EXPECT_TRUE(std::all_of(visited.begin(), visited.end(), [](bool seen) { return seen; }));
   EXPECT_EQ(game.turns.players[0].level, 24);

@@ -74,12 +74,10 @@ void GameSession::startStage() {
 }
 
 void GameSession::applyEvents(const EnemyEvents& events) {
-  // A bonus may contain more than one byte's worth of score units.
-  for (unsigned left = events.scoreUnits; left; ) {
-    const auto amount = static_cast<std::uint8_t>(left > 255 ? 255 : left);
-    score.add(turns.activePlayer, amount);
-    left -= amount;
-  }
+  // Preserve each original $982F call. The decimal adder subtracts ten only
+  // once per column; combining several awards can leave a non-decimal digit
+  // and skip the 60,000-point extra-life crossing. scoreUnits is only a total.
+  for (auto amount : events.scoreAwards) score.add(turns.activePlayer, amount);
   for (auto sound : events.sounds) (void)audio.startEffect(sound);
   for (const auto& bonus : events.bonuses) (void)popups.spawn(bonus.angle, bonus.depth, bonus.label);
 }
