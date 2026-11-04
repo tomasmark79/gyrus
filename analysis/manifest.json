@@ -1,0 +1,23 @@
+{
+  "source": "GYRUSS.atr",
+  "sha256": "dd2ec0f5ca190c1f1446b76d67e1bd13e9a18e19d0792807b887474030752dcc",
+  "sector_size": 128,
+  "stream_length": 16396,
+  "run_address": 32808,
+  "segments": [
+    {
+      "start": 32768,
+      "end": 49151,
+      "atr_offset": 406,
+      "file": "segment-8000-bfff.bin",
+      "sha256": "536042328b35dd9af52836cc1cccd28c746864449b12a03f1ed636ab4a5a6732"
+    },
+    {
+      "start": 736,
+      "end": 737,
+      "atr_offset": 16794,
+      "file": "segment-02e0-02e1.bin",
+      "sha256": "e718ed7d42a125a1095768d9a268dc3b7a1d03be878f6d60ade3e6b90a2be35b"
+    }
+  ]
+}

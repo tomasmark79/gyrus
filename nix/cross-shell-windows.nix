@@ -1,0 +1,67 @@
+# Nix cross-compilation shell for Windows (MinGW)
+# Usage: nix develop ./nix#windows
+
+{ pkgs ? import <nixpkgs> {} }:
+
+let
+  mingwPkgs = pkgs.pkgsCross.mingwW64;
+in
+
+pkgs.mkShell {
+  name = "project-windows-cross";
+  
+  buildInputs = with pkgs; [
+    # Build tools (native)
+    meson
+    ninja
+    pkg-config
+    
+    # MinGW cross-compiler
+    pkgs.pkgsCross.mingwW64.stdenv.cc
+    
+    # MinGW pkg-config
+    pkgs.pkgsCross.mingwW64.buildPackages.pkg-config
+    
+    # Cross-compiled Windows dependencies
+    mingwPkgs.windows.pthreads
+    
+    # Wine for testing
+    wine64
+  ] ++ (with mingwPkgs; [
+    SDL2
+    # These will be cross-compiled for Windows
+    fmt
+    nlohmann_json
+    cxxopts
+  ]);
+  
+  shellHook = ''
+    app_name=$(grep -m1 -E "project\(['\"][^'\"]+['\"]" "$PWD/meson.build" 2>/dev/null | sed -E "s/.*project\(['\"]([^'\"]+)['\"].*/\1/")
+    if [ -z "$app_name" ]; then app_name="Project"; fi
+
+    # Export lib dirs so bundle-deps.sh can locate runtime .dll files from MinGW.
+    export BUNDLE_LIB_DIRS=""
+    for pkg in ${mingwPkgs.fmt} ${mingwPkgs.nlohmann_json} ${mingwPkgs.cxxopts}; do
+      for d in "$pkg/bin" "$pkg/lib"; do
+        [ -d "$d" ] && BUNDLE_LIB_DIRS="$BUNDLE_LIB_DIRS:$d"
+      done
+    done
+    export BUNDLE_LIB_DIRS="''${BUNDLE_LIB_DIRS#:}"
+
+    echo "🔨 $app_name Windows (MinGW) Cross-Compilation Environment"
+    echo ""
+    echo "   Target: x86_64-w64-mingw32"
+    echo "   Compiler: x86_64-w64-mingw32-g++"
+    echo ""
+    echo "Available cross-compiled libraries:"
+    echo "   fmt (Windows)"
+    echo "   nlohmann_json (Windows)"
+    echo ""
+    echo "Build command:"
+    echo "   make cross-windows"
+    echo ""
+    echo "Test Windows binary:"
+    echo "   wine64 ./build/builddir-windows-release/$app_name.exe"
+    echo ""
+  '';
+}

@@ -1,0 +1,12 @@
+option('build_tests',
+  type: 'feature',
+  value: 'auto',
+  description: 'Enable unit tests (native only)'
+)
+
+option('wasm_opt_level',
+  type: 'combo',
+  choices: ['auto', 'O0', 'O1', 'O2', 'O3', 'Os', 'Oz'],
+  value: 'auto',
+  description: 'Override Emscripten optimization level (auto uses buildtype)'
+)
