@@ -6,7 +6,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+  pages: write
 
 concurrency:
   group: github-pages
@@ -32,20 +33,19 @@ jobs:
           cp LICENSE build/pages/LICENSE.txt
           cp LICENSE.template build/pages/LICENSE.template.txt
           touch build/pages/.nojekyll
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: build/pages
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy game
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Publish release branch
+        run: |
+          git fetch origin gh-pages
+          git worktree add --detach build/publish FETCH_HEAD
+          cp -a build/pages/. build/publish/
+          git -C build/publish config user.name 'github-actions[bot]'
+          git -C build/publish config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C build/publish add .
+          if ! git -C build/publish diff --cached --quiet; then
+            git -C build/publish commit -m "Publish Gyrus from ${GITHUB_SHA}"
+            git -C build/publish push origin HEAD:gh-pages
+          fi
+      - name: Request Pages publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds"

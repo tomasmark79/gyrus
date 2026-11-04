@@ -55,7 +55,8 @@ python3 -m http.server 8785 --bind 127.0.0.1 --directory build/builddir-wasm-rel
 Press Enter to start, arrows/WASD to aim, Space for each shot,
 P to pause and Escape to return to the title. Press 2 on the title for two players.
 The playable release is hosted on [GitHub Pages](https://tomasmark79.github.io/gyrus/).
-Pushes to this repository's `main` branch build and deploy it automatically.
+Pushes to this repository's `main` branch build the WASM release automatically;
+the `gh-pages` branch contains the published site files used by GitHub Pages.
 For an offscreen rendering check:
 
 ```sh
