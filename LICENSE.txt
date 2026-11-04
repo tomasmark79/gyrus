@@ -1,0 +1,31 @@
+Licensing notice — mixed provenance
+
+This repository is not licensed as a whole under the MIT License.
+
+NixonCpp template
+-----------------
+The reused NixonCpp template and its original components retain their MIT
+license and copyright notices. The complete license is in LICENSE.template.
+Template source: https://github.com/tomasmark79/NixonCpp
+Imported revision: 8feefd36844009afbc691f562616cf64ce2c7f4f
+
+Original game and reconstructed material
+----------------------------------------
+This project reconstructs the Atari game supplied as GYRUSS.atr. The original
+program, recovered graphics, music, sound data, names and other protected
+material remain subject to the rights of their respective holders.
+
+The NixonCpp license does not cover that original-game material. This project
+does not claim ownership of it or grant permission to use or redistribute it.
+No permission from the original game's rights holders for public distribution
+of this reconstruction has been documented in this repository.
+
+Project-specific material
+-------------------------
+Except for components carrying their own explicit license, no additional
+redistribution license is granted here for project-specific material. Existing
+third-party licenses and copyright notices remain applicable to their own
+components. This notice does not override rights or exceptions provided by law.
+
+Public availability of the source or browser demo is not a grant of rights to
+the original game and is not a statement that its distribution is authorized.

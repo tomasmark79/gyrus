@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Gyrus · Atari reconstruction</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui,sans-serif; background:#080b11; color:#e9edf5; }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; }
+    main { width:min(960px,calc(100% - 32px)); margin:32px auto; }
+    header { display:flex; align-items:baseline; justify-content:space-between; gap:16px; }
+    h1 { font-size:1.25rem; letter-spacing:.15em; }
+    .label { color:#9aa8bd; font-size:.85rem; }
+    canvas { display:block; width:100%; height:auto; aspect-ratio:8/5; background:black;
+      image-rendering:pixelated; border:1px solid #253044; box-sizing:border-box; }
+    canvas:focus-visible,button:focus-visible { outline:2px solid #91b9ff; outline-offset:4px; }
+    .toolbar { display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-top:18px; }
+    button { background:#233652; color:#fff; border:1px solid #526c91; border-radius:5px;
+      padding:10px 18px; cursor:pointer; font:inherit; }
+    p { color:#afbbce; line-height:1.6; font-size:.9rem; }
+    kbd { color:#edf3ff; }
+    #status { min-height:1.4em; }
+  </style>
+</head>
+<body>
+<main>
+  <header><h1>GYRUS</h1><span class="label">Atari reconstruction · work in progress</span></header>
+  <canvas id="canvas" width="800" height="480" tabindex="0"
+          aria-label="Gyruss graphics and player-controls preview"></canvas>
+  <div class="toolbar">
+    <button id="play" type="button">Start preview</button>
+    <button id="fullscreen" type="button">Fullscreen</button>
+  </div>
+  <p><kbd>Arrow keys / WASD</kbd> aim · <kbd>Space</kbd> fires on each press ·
+     <kbd>P</kbd> pauses · <kbd>Esc</kbd> returns to the title.</p>
+  <p>Original artwork, recovered controls, music, incoming waves and formation attacks.
+     Player damage, special enemies and stage progression are still being reconstructed;
+     this preview is not the complete game.</p>
+  <p id="status" role="status">Loading…</p>
+</main>
+<script>
+  const canvas = document.getElementById('canvas');
+  const status = document.getElementById('status');
+  let runtimeReady = false;
+  var Module = {
+    canvas,
+    print: (...args) => console.log(...args),
+    printErr: (...args) => console.error(...args),
+    setStatus: text => { status.textContent = text || (runtimeReady ? 'Ready' : 'Loading…'); },
+    onRuntimeInitialized: () => { runtimeReady = true; status.textContent = 'Ready'; canvas.focus(); },
+    onAbort: reason => { status.textContent = 'Could not start: ' + reason; }
+  };
+  document.getElementById('play').addEventListener('click', () => {
+    canvas.focus();
+    window.dispatchEvent(new KeyboardEvent('keydown', {key:'Enter',code:'Enter',keyCode:13,bubbles:true}));
+    window.dispatchEvent(new KeyboardEvent('keyup', {key:'Enter',code:'Enter',keyCode:13,bubbles:true}));
+  });
+  document.getElementById('fullscreen').addEventListener('click', () => canvas.requestFullscreen());
+  window.addEventListener('keydown', event => {
+    if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(event.code)) event.preventDefault();
+  });
+</script>
+<script async type="text/javascript" src="Gyrus.js"></script>
+</body>
+</html>
