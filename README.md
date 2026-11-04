@@ -1,5 +1,7 @@
 # Gyrus
 
+**[Play Gyrus in your browser](https://tomasmark79.github.io/gyrus/)** — no installation required.
+
 A C++ reconstruction in progress of the Atari 800 XL game supplied as
 `GYRUSS.atr`, based on [NixonCpp](https://github.com/tomasmark79/NixonCpp).
 
@@ -50,8 +52,10 @@ python3 -m http.server 8785 --bind 127.0.0.1 --directory build/builddir-wasm-rel
 # Open http://127.0.0.1:8785/Gyrus.html
 ```
 
-Press Enter to start the preview, arrows/WASD to aim, Space for each shot,
-P to pause and Escape to return to the title. No site has been published.
+Press Enter to start, arrows/WASD to aim, Space for each shot,
+P to pause and Escape to return to the title. Press 2 on the title for two players.
+The playable release is hosted on [GitHub Pages](https://tomasmark79.github.io/gyrus/).
+Pushes to this repository's `main` branch build and deploy it automatically.
 For an offscreen rendering check:
 
 ```sh
