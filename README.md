@@ -88,5 +88,11 @@ Gyrus has its own repository at https://github.com/tomasmark79/gyrus.
 The only Git remote is `origin`, pointing to that repository. NixonCpp is the
 template attribution above, not a configured push destination.
 
-The original NixonCpp copyright and [MIT license](LICENSE) are retained for its
-code. This does not establish a license for the Atari game or recovered assets.
+The original NixonCpp copyright and [MIT license](LICENSE.template) are retained
+for the reused template. **The game as a whole is not MIT-licensed.**
+
+The original game and recovered graphics, music and other protected material
+remain subject to their respective rights holders. No permission for public
+distribution of this reconstruction has been documented. Public availability
+of this repository or its demo does not establish such permission.
+See the [licensing notice](LICENSE) for the scope of these terms.

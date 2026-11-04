@@ -1,21 +1,31 @@
-MIT License
+Licensing notice — mixed provenance
 
-Copyright (c) 2024-2026 Tomáš Mark
+This repository is not licensed as a whole under the MIT License.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+NixonCpp template
+-----------------
+The reused NixonCpp template and its original components retain their MIT
+license and copyright notices. The complete license is in LICENSE.template.
+Template source: https://github.com/tomasmark79/NixonCpp
+Imported revision: 8feefd36844009afbc691f562616cf64ce2c7f4f
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Original game and reconstructed material
+----------------------------------------
+This project reconstructs the Atari game supplied as GYRUSS.atr. The original
+program, recovered graphics, music, sound data, names and other protected
+material remain subject to the rights of their respective holders.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+The NixonCpp license does not cover that original-game material. This project
+does not claim ownership of it or grant permission to use or redistribute it.
+No permission from the original game's rights holders for public distribution
+of this reconstruction has been documented in this repository.
+
+Project-specific material
+-------------------------
+Except for components carrying their own explicit license, no additional
+redistribution license is granted here for project-specific material. Existing
+third-party licenses and copyright notices remain applicable to their own
+components. This notice does not override rights or exceptions provided by law.
+
+Public availability of the source or browser demo is not a grant of rights to
+the original game and is not a statement that its distribution is authorized.

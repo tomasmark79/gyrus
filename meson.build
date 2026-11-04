@@ -1,9 +1,9 @@
 # Gyrus Project
-# MIT License Copyright (c) 2024-2026 Tomáš Mark
+# Build configuration derived from MIT-licensed NixonCpp; see LICENSE.template.
 
 project('Gyrus', 'cpp',
   version: '0.0.1',
-  license: 'MIT',
+  license: 'LicenseRef-Mixed',
   default_options: [
     'cpp_std=c++20',
     'warning_level=3',

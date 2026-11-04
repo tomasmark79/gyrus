@@ -29,6 +29,8 @@ jobs:
           cp build/builddir-wasm-release/Gyrus.html build/pages/index.html
           cp build/builddir-wasm-release/Gyrus.js build/pages/
           cp build/builddir-wasm-release/Gyrus.wasm build/pages/
+          cp LICENSE build/pages/LICENSE.txt
+          cp LICENSE.template build/pages/LICENSE.template.txt
           touch build/pages/.nojekyll
       - uses: actions/upload-pages-artifact@v4
         with:
